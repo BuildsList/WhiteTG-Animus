@@ -376,7 +376,7 @@ var/global/floorIsLava = 0
 
 	//world << "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]"
 	//world << "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]"
-	usr << browse(dat, "window=admincaster_main;size=400x600")
+	usr << browse(sanitize_russian(dat, 1), "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
 
@@ -391,7 +391,7 @@ var/global/floorIsLava = 0
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
+	usr << browse(sanitize_russian(dat, 1), "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
 	if(!check_rights(0))	return
@@ -411,7 +411,7 @@ var/global/floorIsLava = 0
 		<A href='?src=\ref[src];create_mob=1'>Create Mob</A><br>
 		"}
 
-	usr << browse(dat, "window=admin2;size=210x180")
+	usr << browse(sanitize_russian(dat, 1), "window=admin2;size=210x180")
 	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
@@ -737,9 +737,9 @@ var/global/floorIsLava = 0
 	if(SSjob)
 		for(var/datum/job/job in SSjob.occupations)
 			count++
-			var/J_title = html_encode(job.title)
-			var/J_opPos = html_encode(job.total_positions - (job.total_positions - job.current_positions))
-			var/J_totPos = html_encode(job.total_positions)
+			var/J_title = rhtml_encode(job.title)
+			var/J_opPos = rhtml_encode(job.total_positions - (job.total_positions - job.current_positions))
+			var/J_totPos = rhtml_encode(job.total_positions)
 			if(job.total_positions < 0)
 				dat += "[J_title]: [J_opPos]   (unlimited)"
 			else

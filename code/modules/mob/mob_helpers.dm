@@ -53,7 +53,7 @@
 		return 0
 
 /proc/stars(n, pr)
-	n = html_encode(n)
+	n = rhtml_encode(n)
 	if (pr == null)
 		pr = 25
 	if (pr <= 0)
@@ -75,7 +75,7 @@
 	return sanitize(t)
 
 /proc/slur(n)
-	var/phrase = html_decode(n)
+	var/phrase = rhtml_decode(n)
 	var/leng = lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -99,7 +99,7 @@
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = rhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -163,7 +163,7 @@ The difference with stutter is that this proc can stutter more than 1 letter
 The issue here is that anything that does not have a space is treated as one word (in many instances). For instance, "LOOKING," is a word, including the comma.
 It's fairly easy to fix if dealing with single letters but not so much with compounds of letters./N
 */
-	var/te = html_decode(n)
+	var/te = rhtml_decode(n)
 	var/t = ""
 	n = length(n)
 	var/p = 1

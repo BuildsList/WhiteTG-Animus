@@ -453,6 +453,6 @@
 						if (A.type == O.type)
 							A.vars[variable] = O.vars[variable]
 
-	world.log << "### MassVarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]"
+	world.log << "### MassVarEdit by [src]: [O.type] [variable]=[rhtml_encode("[O.vars[variable]]")]"
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]]")
 	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]]")

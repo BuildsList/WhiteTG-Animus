@@ -108,14 +108,6 @@ macro "borghotkeymode"
 		command = "resist"
 		is-disabled = false
 	elem 
-		name = "O"
-		command = "ooc"
-		is-disabled = false
-	elem 
-		name = "CTRL+O"
-		command = "ooc"
-		is-disabled = false
-	elem 
 		name = "D+REP"
 		command = ".east"
 		is-disabled = false
@@ -138,6 +130,14 @@ macro "borghotkeymode"
 	elem 
 		name = "CTRL+G"
 		command = "a-intent right"
+		is-disabled = false
+	elem 
+		name = "O"
+		command = "ooc"
+		is-disabled = false
+	elem 
+		name = "CTRL+O"
+		command = "ooc"
 		is-disabled = false
 	elem 
 		name = "Q"
@@ -200,16 +200,20 @@ macro "borghotkeymode"
 		command = ".options"
 		is-disabled = false
 	elem 
-		name = "F2+REP"
-		command = ".screenshot auto"
+		name = "F2"
+		command = "OOC"
 		is-disabled = false
 	elem 
-		name = "SHIFT+F2+REP"
-		command = ".screenshot"
+		name = "F3"
+		command = "Say"
+		is-disabled = false
+	elem 
+		name = "F4"
+		command = "Me"
 		is-disabled = false
 	elem 
 		name = "F5"
-		command = "Aghost"
+		command = "Asay"
 		is-disabled = false
 	elem 
 		name = "F6"
@@ -334,6 +338,10 @@ macro "macro"
 		command = "a-intent right"
 		is-disabled = false
 	elem 
+		name = "CTRL+O"
+		command = "ooc"
+		is-disabled = false
+	elem 
 		name = "CTRL+Q"
 		command = ".northwest"
 		is-disabled = false
@@ -370,20 +378,20 @@ macro "macro"
 		command = ".options"
 		is-disabled = false
 	elem 
-		name = "F2+REP"
-		command = ".screenshot auto"
+		name = "F2"
+		command = "OOC"
 		is-disabled = false
 	elem 
-		name = "SHIFT+F2+REP"
-		command = ".screenshot"
+		name = "F3"
+		command = "Say"
+		is-disabled = false
+	elem 
+		name = "F4"
+		command = "Me"
 		is-disabled = false
 	elem 
 		name = "F5"
-		command = "Aghost"
-		is-disabled = false
-	elem 
-		name = "CTRL+O"
-		command = "ooc"
+		command = "Asay"
 		is-disabled = false
 	elem 
 		name = "F6"
@@ -628,16 +636,20 @@ macro "hotkeymode"
 		command = ".options"
 		is-disabled = false
 	elem 
-		name = "F2+REP"
-		command = ".screenshot auto"
+		name = "F2"
+		command = "OOC"
 		is-disabled = false
 	elem 
-		name = "SHIFT+F2+REP"
-		command = ".screenshot"
+		name = "F3"
+		command = "Say"
+		is-disabled = false
+	elem 
+		name = "F4"
+		command = "Me"
 		is-disabled = false
 	elem 
 		name = "F5"
-		command = "Aghost"
+		command = "Asay"
 		is-disabled = false
 	elem 
 		name = "F6"
@@ -742,10 +754,6 @@ macro "borgmacro"
 		command = "resist"
 		is-disabled = false
 	elem 
-		name = "CTRL+O"
-		command = "ooc"
-		is-disabled = false
-	elem 
 		name = "CTRL+D+REP"
 		command = ".east"
 		is-disabled = false
@@ -756,6 +764,10 @@ macro "borgmacro"
 	elem 
 		name = "CTRL+G"
 		command = "a-intent right"
+		is-disabled = false
+	elem 
+		name = "CTRL+O"
+		command = "ooc"
 		is-disabled = false
 	elem 
 		name = "CTRL+Q"
@@ -790,16 +802,20 @@ macro "borgmacro"
 		command = ".options"
 		is-disabled = false
 	elem 
-		name = "F2+REP"
-		command = ".screenshot auto"
+		name = "F2"
+		command = "OOC"
 		is-disabled = false
 	elem 
-		name = "SHIFT+F2+REP"
-		command = ".screenshot"
+		name = "F3"
+		command = "Say"
+		is-disabled = false
+	elem 
+		name = "F4"
+		command = "Me"
 		is-disabled = false
 	elem 
 		name = "F5"
-		command = "Aghost"
+		command = "Asay"
 		is-disabled = false
 	elem 
 		name = "F6"
