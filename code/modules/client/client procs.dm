@@ -107,18 +107,6 @@ var/next_external_rsc = 0
 	directory[ckey] = src
 
 	//Admin Authorisation
-	if(protected_config.autoadmin)
-		if(!admin_datums[ckey])
-			var/datum/admin_rank/autorank
-			for(var/datum/admin_rank/R in admin_ranks)
-				if(R.name == protected_config.autoadmin_rank)
-					autorank = R
-					break
-			if(!autorank)
-				world << "Autoadmin rank not found"
-			else
-				var/datum/admins/D = new(autorank, ckey)
-				admin_datums[ckey] = D
 	holder = admin_datums[ckey]
 	if(holder)
 		admins += src
@@ -203,9 +191,6 @@ var/next_external_rsc = 0
 			src << message
 		clientmessages.Remove(ckey)
 
-	if (config && config.autoconvert_notes)
-		convert_notes_sql(ckey)
-
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -276,8 +261,8 @@ var/next_external_rsc = 0
 		send2irc_adminless_only("Watchlist", "[key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	var/admin_rank = "Player"
-	if (src.holder && src.holder.rank)
-		admin_rank = src.holder.rank.name
+	if (src.holder)
+		admin_rank = src.holder.rank
 
 	var/sql_ip = sanitizeSQL(src.address)
 	var/sql_computerid = sanitizeSQL(src.computer_id)

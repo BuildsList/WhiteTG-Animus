@@ -225,7 +225,7 @@ var/list/admin_verbs_hideable = list(
 	if(holder)
 		control_freak = CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
-		var/rights = holder.rank.rights
+		var/rights = holder.rights
 		verbs += admin_verbs_default
 		if(rights & R_BUILDMODE)	verbs += /client/proc/togglebuildmodeself
 		if(rights & R_ADMIN)		verbs += admin_verbs_admin
@@ -239,11 +239,6 @@ var/list/admin_verbs_hideable = list(
 		if(rights & R_REJUVINATE)	verbs += admin_verbs_rejuv
 		if(rights & R_SOUNDS)		verbs += admin_verbs_sounds
 		if(rights & R_SPAWN)		verbs += admin_verbs_spawn
-
-		for(var/path in holder.rank.adds)
-			verbs += path
-		for(var/path in holder.rank.subs)
-			verbs -= path
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
@@ -278,8 +273,6 @@ var/list/admin_verbs_hideable = list(
 		/client/proc/cmd_admin_areatest,
 		/client/proc/readmin,
 		)
-	if(holder)
-		verbs.Remove(holder.rank.adds)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
@@ -535,17 +528,28 @@ var/list/admin_verbs_hideable = list(
 		togglebuildmode(src.mob)
 	feedback_add_details("admin_verb","TBMS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/readmin()
+	set name = "Re-Admin self"
+	set category = "Admin"
+
+	if(deadmin_holder)
+		deadmin_holder.reassociate()
+		log_admin("[src] re-admined themself.")
+		message_admins("[src] re-admined themself.", 1)
+		src << "<span class='interface'>You now have the keys to control the planet, or atleast a small space station</span>"
+		verbs -= /client/proc/readmin
+
 /client/proc/deadmin_self()
 	set name = "De-admin self"
 	set category = "Admin"
 
 	if(holder)
-		log_admin("[src] deadmined themself.")
-		message_admins("[src] deadmined themself.")
-		deadmin()
-		verbs += /client/proc/readmin
-		deadmins += ckey
-		src << "<span class='interface'>You are now a normal player.</span>"
+		if(alert("Confirm self-deadmin for the round? You can't re-admin yourself without someont promoting you.",,"Yes","No") == "Yes")
+			log_admin("[src] deadmined themself.")
+			message_admins("[src] deadmined themself.", 1)
+			deadmin()
+			src << "<span class='interface'>You are now a normal player.</span>"
+			verbs |= /client/proc/readmin
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_log_hrefs()
@@ -565,57 +569,6 @@ var/list/admin_verbs_hideable = list(
 	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
-
-/client/proc/readmin()
-	set name = "Re-admin self"
-	set category = "Admin"
-	set desc = "Regain your admin powers."
-	var/list/rank_names = list()
-	for(var/datum/admin_rank/R in admin_ranks)
-		rank_names[R.name] = R
-	var/datum/admins/D = admin_datums[ckey]
-	var/rank = null
-	if(config.admin_legacy_system)
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-		for(var/line in Lines)
-			var/list/splitline = text2list(line, " = ")
-			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
-				break
-			continue
-	else
-		if(!dbcon.IsConnected())
-			message_admins("Warning, mysql database is not connected.")
-			src << "Warning, mysql database is not connected."
-			return
-		var/sql_ckey = sanitizeSQL(ckey)
-		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
-		query.Execute()
-		while(query.NextRow())
-			rank = ckeyEx(query.item[1])
-	if(!D)
-		if(rank_names[rank] == null)
-			var/error_extra = ""
-			if(!config.admin_legacy_system)
-				error_extra = " Check mysql DB connection."
-			src << "Error while re-adminning, admin rank ([rank]) does not exist.[error_extra]"
-			WARNING("Error while re-adminning [src], admin rank ([rank]) does not exist.[error_extra]")
-			return
-		D = new(rank_names[rank],ckey)
-		var/client/C = directory[ckey]
-		D.associate(C)
-		message_admins("[src] re-adminned themselves.")
-		log_admin("[src] re-adminned themselves.")
-		deadmins -= ckey
-		feedback_add_details("admin_verb","RAS")
-		return
-	else
-		src << "You are already an admin."
-		verbs -= /client/proc/readmin
-		deadmins -= ckey
-		return
 
 /client/proc/populate_world(amount = 50 as num)
 	set name = "Populate World"

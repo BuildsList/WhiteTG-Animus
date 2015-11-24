@@ -342,10 +342,10 @@ var/datum/subsystem/job/SSjob
 	if(!joined_late)
 		var/obj/S = null
 		for(var/obj/effect/landmark/start/sloc in start_landmarks_list)
-			if(sloc.name != rank)	
+			if(sloc.name != rank)
 				S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
 				continue
-			if(locate(/mob/living) in sloc.loc)	
+			if(locate(/mob/living) in sloc.loc)
 				continue
 			S = sloc
 			break
@@ -412,14 +412,36 @@ var/datum/subsystem/job/SSjob
 		else //We ran out of spare locker spawns!
 			break
 
+/datum/subsystem/job/proc/LoadJobs() //ran during round setup, reads info from jobs.txt -- Urist
+	var/list/jobEntries = file2list("config/jobs.txt")
 
-/datum/subsystem/job/proc/LoadJobs()
-	var/jobstext = return_file_text("config/jobs.txt")
-	for(var/datum/job/J in occupations)
-		var/regex = "[J.title]=(-1|\\d+),(-1|\\d+)"
-		var/datum/regex/results = regex_find(jobstext, regex)
-		J.total_positions = text2num(results.str(2))
-		J.spawn_positions = text2num(results.str(3))
+	for(var/job in jobEntries)
+		if(!job)
+			continue
+
+		job = trim(job)
+		if (!length(job))
+			continue
+
+		var/pos = findtext(job, "=")
+		var/name = null
+		var/value = null
+
+		if(pos)
+			name = copytext(job, 1, pos)
+			value = copytext(job, pos + 1)
+		else
+			continue
+
+		if(name && value)
+			var/datum/job/J = GetJob(name)
+			if(!J)	continue
+			J.total_positions = text2num(value)
+			J.spawn_positions = text2num(value)
+			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
+				J.total_positions = 0
+
+	return 1
 
 /datum/subsystem/job/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)

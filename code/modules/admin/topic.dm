@@ -247,9 +247,6 @@
 
 		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
 
-	else if(href_list["editrights"])
-		edit_rights_topic(href_list)
-
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))	return
 

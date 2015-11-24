@@ -1,32 +1,27 @@
 var/list/admin_datums = list()
 
 /datum/admins
-	var/datum/admin_rank/rank
-
+	var/rank			= "Temporary Admin"
 	var/client/owner	= null
+	var/rights = 0
 	var/fakekey			= null
 
 	var/datum/marked_datum
 
-	var/admincaster_screen = 0	//TODO: remove all these 5 variables, they are completly unacceptable
+	var/admincaster_screen = 0	//See newscaster.dm under machinery for a full description
 	var/datum/newscaster/feed_message/admincaster_feed_message = new /datum/newscaster/feed_message
 	var/datum/newscaster/wanted_message/admincaster_wanted_message = new /datum/newscaster/wanted_message
 	var/datum/newscaster/feed_channel/admincaster_feed_channel = new /datum/newscaster/feed_channel
-	var/admincaster_signature
+	var/admincaster_signature	//What you'll sign the newsfeeds as
 
-/datum/admins/New(datum/admin_rank/R, ckey)
+/datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(!ckey)
-		spawn(-1)
-			del(src)
 		throw EXCEPTION("Admin datum created without a ckey")
+		qdel(src)
 		return
-	if(!istype(R))
-		spawn(-1)
-			del(src)
-		throw EXCEPTION("Admin datum created without a rank")
-		return
-	rank = R
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
+	rank = initial_rank
+	rights = initial_rights
 	admin_datums[ckey] = src
 
 /datum/admins/proc/associate(client/C)
@@ -41,20 +36,16 @@ var/list/admin_datums = list()
 	if(owner)
 		admins -= owner
 		owner.remove_admin_verbs()
+		owner.deadmin_holder = owner.holder
 		owner.holder = null
-		owner = null
 
-/datum/admins/proc/check_if_greater_rights_than_holder(datum/admins/other)
-	if(!other)
-		return 1 //they have no rights
-	if(rank.rights == 65535)
-		return 1 //we have all the rights
-	if(src == other)
-		return 1 //you always have more rights than yourself
-	if(rank.rights != other.rank.rights)
-		if( (rank.rights & other.rank.rights) == other.rank.rights )
-			return 1 //we have all the rights they have and more
-	return 0
+/datum/admins/proc/reassociate()
+	if(owner)
+		admins += owner
+		owner.holder = src
+		owner.deadmin_holder = null
+		owner.add_admin_verbs()
+
 
 /*
 checks if usr is an admin with at least ONE of the flags in rights_required. (Note, they don't need all the flags)
@@ -66,9 +57,20 @@ proc/admin_proc()
 	if(!check_rights(R_ADMIN)) return
 	world << "you have enough rights!"
 
-NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc which they did not call
-you will have to do something like if(client.rights & R_ADMIN) yourself.
+NOTE: It checks usr by default. Supply the "user" argument if you wish to check for a specific mob.
 */
+/datum/admins/proc/check_if_greater_rights_than_holder(datum/admins/other)
+	if(!other)
+		return 1 //they have no rights
+	if(rights == 65535)
+		return 1 //we have all the rights
+	if(src == other)
+		return 1 //you always have more rights than yourself
+	if(rights != other.rights)
+		if( (rights & other.rights) == other.rights )
+			return 1 //we have all the rights they have and more
+	return 0
+
 /proc/check_rights(rights_required, show_msg=1)
 	if(usr && usr.client)
 		if (check_rights_for(usr.client, rights_required))
@@ -87,17 +89,16 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 			return usr.client.holder.check_if_greater_rights_than_holder(other.holder)
 	return 0
 
+
 /client/proc/deadmin()
-	admin_datums -= ckey
 	if(holder)
 		holder.disassociate()
-		del(holder)
+		//qdel(holder)
 	return 1
 
-//This proc checks whether subject has at least ONE of the rights specified in rights_required.
 /proc/check_rights_for(client/subject, rights_required)
-	if(subject && subject.holder && subject.holder.rank)
-		if(rights_required && !(rights_required & subject.holder.rank.rights))
+	if(subject && subject.holder)
+		if(rights_required && !(rights_required & subject.holder.rights))
 			return 0
 		return 1
 	return 0
