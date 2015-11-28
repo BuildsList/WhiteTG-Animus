@@ -85,12 +85,13 @@ var/global/normal_ooc_colour = "#002eb8"
 	set category = "Fun"
 	normal_ooc_colour = initial(normal_ooc_colour)
 
-/client/verb/colorooc()
+/client/proc/colorooc()
 	set name = "Set Your OOC Color"
 	set category = "Preferences"
 
-	if(!holder || check_rights_for(src, R_ADMIN))
-		if(!is_content_unlocked())	return
+	if (!holder)
+		src << "Only administrators may use this command."
+		return
 
 	var/new_ooccolor = input(src, "Please select your OOC color.", "OOC color", prefs.ooccolor) as color|null
 	if(new_ooccolor)
@@ -99,16 +100,17 @@ var/global/normal_ooc_colour = "#002eb8"
 	feedback_add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/verb/resetcolorooc()
+/client/proc/resetcolorooc()
 	set name = "Reset Your OOC Color"
 	set desc = "Returns your OOC Color to default"
 	set category = "Preferences"
 
-	if(!holder || check_rights_for(src, R_ADMIN))
-		if(!is_content_unlocked())	return
+	if (!holder)
+		src << "Only administrators may use this command."
+		return
 
-		prefs.ooccolor = initial(prefs.ooccolor)
-		prefs.save_preferences()
+	prefs.ooccolor = initial(prefs.ooccolor)
+	prefs.save_preferences()
 
 //Checks admin notice
 /client/verb/admin_notice()
