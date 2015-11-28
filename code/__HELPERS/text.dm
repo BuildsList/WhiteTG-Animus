@@ -33,6 +33,26 @@
 			index = findtext(t, char)
 	return t
 
+proc/resanitize_russian(var/msg, var/html = 0)
+	var/rep
+	if(html)
+		rep = "&#x44F;"
+		var/index = findtext(msg, "&#255;")
+		while(index)
+			msg = copytext(msg, 1, index) + rep + copytext(msg, index + 6)
+			index = findtext(msg, "&#255;")
+	else
+		rep = "&#255;"
+		var/index = findtext(msg, "&#x44F;")
+		while(index)
+			msg = copytext(msg, 1, index) + rep + copytext(msg, index + 7)
+			index = findtext(msg, "&#x44F;")
+	var/index = findtext(msg, "ÿ")
+	while(index)
+		msg = copytext(msg, 1, index) + rep + copytext(msg, index + 1)
+		index = findtext(msg, "ÿ")
+	return msg
+
 proc/sanitize_russian(var/msg, var/html = 0)
 	var/rep
 	if(html)
