@@ -95,7 +95,7 @@ proc/sanitize_russian(var/msg, var/html = 0)
 	if(c.len == 1)
 		c = text2list(msg, "&#255;")
 		if(c.len == 1)
-			c = text2list(msg, "&#x4FF")
+			c = text2list(msg, "&#x44F;")
 			if(c.len == 1)
 				return html_decode(msg)
 	var/out = ""
@@ -264,14 +264,11 @@ proc/sanitize_russian(var/msg, var/html = 0)
 /*
  * Text modification
  */
-// See bygex.dm
-#ifndef USE_BYGEX
 /proc/replacetext(text, find, replacement)
 	return list2text(text2list(text, find), replacement)
 
 /proc/replacetextEx(text, find, replacement)
 	return list2text(text2listEx(text, find), replacement)
-#endif
 
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
