@@ -64,7 +64,6 @@ var/list/admin_verbs_admin = list(
 	)
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
-	/client/proc/unjobban_panel,
 	/client/proc/DB_ban_panel,
 	/client/proc/stickybanpanel
 	)
@@ -274,8 +273,6 @@ var/list/admin_verbs_hideable = list(
 		/client/proc/readmin,
 		/client/proc/reload_nanoui_resources
 		)
-	if(holder)
-		verbs.Remove(holder.adds)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
