@@ -24,7 +24,7 @@ var/datum/subsystem/job/SSjob
 
 /datum/subsystem/job/proc/SetupOccupations(faction = "Station")
 	occupations = list()
-	var/list/all_jobs = typesof(/datum/job)
+	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		world << "<span class='boldannounce'>Error setting up jobs, no job datums found</span>"
 		return 0

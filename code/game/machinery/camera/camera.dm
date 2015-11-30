@@ -107,10 +107,6 @@
 		..()
 	return
 
-/obj/machinery/camera/blob_act()
-	qdel(src)
-	return
-
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)

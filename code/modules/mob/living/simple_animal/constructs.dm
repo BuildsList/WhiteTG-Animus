@@ -16,6 +16,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
+	maxbodytemp = INFINITY
 	healable = 0
 	faction = list("cult")
 	flying = 1
@@ -27,7 +28,7 @@
 /mob/living/simple_animal/construct/New()
 	..()
 	for(var/spell in construct_spells)
-		mob_spell_list += new spell(src)
+		AddSpell(new spell(null))
 
 /mob/living/simple_animal/construct/death()
 	..(1)
@@ -53,7 +54,9 @@
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		adjustBruteLoss(-5)
-		M.emote("me", 1, "mends some of \the <EM>[src]'s</EM> wounds.")
+		if(src != M)
+			Beam(M,icon_state="sendbeam",icon='icons/effects/effects.dmi',time=4)
+		M.emote("me", 1, "repairs some of \the <EM>[src]'s</EM> dents.")
 	else if(src != M)
 		..()
 
@@ -75,7 +78,7 @@
 /mob/living/simple_animal/construct/armored
 	name = "Juggernaut"
 	real_name = "Juggernaut"
-	desc = "A possessed suit of armor driven by the will of the restless dead."
+	desc = "A massive, armored construct built to spearhead attacks and soak up enemy fire."
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 250
@@ -93,7 +96,7 @@
 	force_threshold = 11
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	playstyle_string = "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
-						create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>"
+						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</B>"
 
 /mob/living/simple_animal/construct/armored/bullet_act(obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
@@ -131,7 +134,7 @@
 /mob/living/simple_animal/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
-	desc = "A wicked bladed shell contraption piloted by a bound spirit"
+	desc = "A wicked, clawed shell constructed to assassinate enemies and sow chaos behind enemy lines."
 	icon_state = "floating"
 	icon_living = "floating"
 	maxHealth = 75
@@ -152,7 +155,7 @@
 /mob/living/simple_animal/construct/builder
 	name = "Artificer"
 	real_name = "Artificer"
-	desc = "A bulbous construct dedicated to building and maintaining The Cult of Nar-Sie's armies"
+	desc = "A bulbous construct dedicated to building and maintaining the Cult of Nar-Sie's armies."
 	icon_state = "artificer"
 	icon_living = "artificer"
 	maxHealth = 50
@@ -165,10 +168,10 @@
 	speed = 0
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
 	playstyle_string = "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -180,7 +183,7 @@
 /mob/living/simple_animal/construct/harvester
 	name = "Harvester"
 	real_name = "Harvester"
-	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	desc = "A long, thin construct built to herald Nar-Sie's rise. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
 	maxHealth = 60

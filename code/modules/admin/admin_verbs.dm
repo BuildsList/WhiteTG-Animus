@@ -64,7 +64,6 @@ var/list/admin_verbs_admin = list(
 	)
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
-	/client/proc/jobbans,
 	/client/proc/unjobban_panel,
 	/client/proc/DB_ban_panel,
 	/client/proc/stickybanpanel
@@ -273,7 +272,10 @@ var/list/admin_verbs_hideable = list(
 		/client/proc/cmd_admin_grantfullaccess,
 		/client/proc/cmd_admin_areatest,
 		/client/proc/readmin,
+		/client/proc/reload_nanoui_resources
 		)
+	if(holder)
+		verbs.Remove(holder.adds)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
@@ -363,17 +365,6 @@ var/list/admin_verbs_hideable = list(
 		holder.check_antagonists()
 		log_admin("[key_name(usr)] checked antagonists.")	//for tsar~
 	feedback_add_details("admin_verb","CHA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
-/client/proc/jobbans()
-	set name = "Display Job bans"
-	set category = "Admin"
-	if(holder)
-		if(config.ban_legacy_system)
-			holder.Jobbans()
-		else
-			holder.DB_ban_panel()
-	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/unban_panel()

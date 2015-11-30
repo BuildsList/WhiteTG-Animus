@@ -83,7 +83,7 @@
 	if(tableclimber && tableclimber != user)
 		tableclimber.Weaken(2)
 		tableclimber.visible_message("<span class='warning'>[tableclimber.name] has been knocked off the table", "You're knocked off the table!", "You see [tableclimber.name] get knocked off the table</span>")
-
+	..()
 
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
@@ -100,6 +100,7 @@
 		return !density
 
 /obj/structure/table/MouseDrop_T(atom/movable/O, mob/user)
+	..()
 	if(ismob(O) && user == O && ishuman(user))
 		if(user.canmove)
 			climb_table(user)
@@ -339,14 +340,14 @@
 			if(src.status == 2)
 				user << "<span class='notice'>You start weakening the reinforced table...</span>"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50, target = src))
+				if (do_after(user, 50/W.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					user << "<span class='notice'>You weaken the table.</span>"
 					src.status = 1
 			else
 				user << "<span class='notice'>You start strengthening the reinforced table...</span>"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50, target = src))
+				if (do_after(user, 50/W.toolspeed, target = src))
 					if(!src || !WT.isOn()) return
 					user << "<span class='notice'>You strengthen the table.</span>"
 					src.status = 2

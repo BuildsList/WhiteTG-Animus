@@ -7,6 +7,7 @@
 	var/datum/admins/deadmin_holder = null
 	var/buildmode		= 0
 
+	var/jobbancache = null //Used to cache this client's jobbans to save on DB queries
 	var/last_message	= "" //Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contins a number of how many times a message identical to last_message was sent.
 

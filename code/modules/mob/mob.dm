@@ -10,9 +10,6 @@
 	ghostize()
 	return ..()
 
-/mob/proc/sac_act(obj/effect/rune/R, mob/victim)
-	return
-
 var/next_mob_id = 0
 /mob/New()
 	tag = "mob_[next_mob_id++]"
@@ -979,3 +976,7 @@ var/list/slot_equipment_priority = list( \
 			if(CL.scan_reagents)
 				return 1
 	return 0
+
+//Can the mob use Topic to interact with machines
+/mob/proc/canUseTopic()
+	return
