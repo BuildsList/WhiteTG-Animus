@@ -107,8 +107,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 		s["active_players"] = get_active_player_count()
 		s["players"] = clients.len
-		s["revision"] = revdata.revision
-		s["revision_date"] = revdata.date
 		s["admins"] = admins
 		s["gamestate"] = 1
 		if(ticker)
