@@ -184,15 +184,19 @@
  **/
 /datum/nanoui/proc/get_config_data()
 	var/list/config_data = list(
-			"title" = title,
-			"srcObject" = list("name" = src_object.name),
+			"title" = sanitize(title),
+			"srcObject" = list(
+				"name" = sanitize(src_object.name)
+			),
 			"stateKey" = state_key,
 			"status" = status,
 			"autoUpdateLayout" = auto_update_layout,
 			"autoUpdateContent" = auto_update_content,
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
-			"user" = list("name" = user.name)
+			"user" = list(
+				"name" = user.name
+			)
 		)
 	return config_data
 
@@ -361,7 +365,7 @@
 	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
 	return {"
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 	<head>
