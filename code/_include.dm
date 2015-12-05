@@ -1,1 +1,35 @@
-#include "NanoUI.rsc"
+var/list/_include = list(\
+'nano/interfaces/air_alarm.tmpl',\
+'nano/interfaces/airlock_electronics.tmpl',\
+'nano/interfaces/apc.tmpl',\
+'nano/interfaces/atmos_filter.tmpl',\
+'nano/interfaces/atmos_mixer.tmpl',\
+'nano/interfaces/atmos_pump.tmpl',\
+'nano/interfaces/canister.tmpl',\
+'nano/interfaces/chem_dispenser.tmpl',\
+'nano/interfaces/chem_heater.tmpl',\
+'nano/interfaces/cryo.tmpl',\
+'nano/interfaces/smes.tmpl',\
+'nano/interfaces/solar_control.tmpl',\
+'nano/interfaces/tanks.tmpl',\
+'nano/layouts/layout_basic.css',\
+'nano/layouts/layout_basic.tmpl',\
+'nano/layouts/layout_default.css',\
+'nano/layouts/layout_default.tmpl',\
+'nano/scripts/doT.js',\
+'nano/scripts/jquery-ui.js',\
+'nano/scripts/jquery.js',\
+'nano/scripts/nano_base_callbacks.js',\
+'nano/scripts/nano_base_helpers.js',\
+'nano/scripts/nano_config.js',\
+'nano/scripts/nano_state.js',\
+'nano/scripts/nano_state_default.js',\
+'nano/scripts/nano_state_manager.js',\
+'nano/scripts/nano_template.js',\
+'nano/scripts/nano_update.js',\
+'nano/scripts/nano_utility.js',\
+'nano/styles/icons.css',\
+'nano/styles/shared.css',\
+'code/game/machinery/computer/crew.css',\
+'code/game/machinery/computer/crew.js',\
+)
