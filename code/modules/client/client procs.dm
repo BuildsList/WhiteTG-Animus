@@ -309,7 +309,7 @@ var/next_external_rsc = 0
 		'html/panels.css',
 		'html/browser/common.css',
 		'html/browser/scannernew.css',
-		'html/browser/playeroptions.css',
+		'html/browser/playeroptions.css'
 		)
 	spawn (10)
 		//Precache the client with all other assets slowly, so as to not block other browse() calls

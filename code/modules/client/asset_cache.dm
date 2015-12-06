@@ -240,33 +240,72 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		hi.registerResources()
 
 /datum/asset/nanoui
-	var/list/common = list()
 
-	var/list/common_dirs = list(
-		"nano/styles/",
-		"nano/scripts/",
-		"nano/images/",
-		"nano/layouts/"
-	)
-	var/list/uncommon_dirs = list(
-		"nano/interfaces/"
-	)
+	    //////  //  //  //////  //  //    //  //    //    //  //  //////  //  //  //////
+	   //      //  //  //      // //     /// //   ////   /// //  //  //  //  //    //
+	  ////    //  //  //      ////      //////  //  //  //////  //  //  //  //    //
+	 //      //  //  //      // //     // ///  //////  // ///  //  //  //  //    //
+	//      //////  //////  //  //    //  //  //  //  //  //  //////  //////  //////
+
+	var/list/common = list(
+		"c_charging.gif"			= 'nano/images/c_charging.gif',
+		"c_discharging.gif"			= 'nano/images/c_discharging.gif',
+		"c_max.gif"					= 'nano/images/c_max.gif',
+		"nanomapBackground.png"		= 'nano/images/nanomapBackground.png',
+		"nanomap_z1.png"			= 'nano/images/nanomap_z1.png',
+		"uiBackground-Syndicate.png"= 'nano/images/uiBackground-Syndicate.png',
+		"uiBackground.png"			= 'nano/images/uiBackground.png',
+		"uiBasicBackground.png"		= 'nano/images/uiBasicBackground.png',
+		"uiIcons16.png"				= 'nano/images/uiIcons16.png',
+		"uiIcons16Green.png"		= 'nano/images/uiIcons16Green.png',
+		"uiIcons16Red.png"			= 'nano/images/uiIcons16Red.png',
+		"uiIcons24.png"				= 'nano/images/uiIcons24.png',
+		"uiLinkPendingIcon.gif"		= 'nano/images/uiLinkPendingIcon.gif',
+		"uiMaskBackground.png"		= 'nano/images/uiMaskBackground.png',
+		"uiNoticeBackground.jpg"	= 'nano/images/uiNoticeBackground.jpg',
+		"uiTitleFluff-Syndicate.png"= 'nano/images/uiTitleFluff-Syndicate.png',
+		"uiTitleFluff.png"			= 'nano/images/uiTitleFluff.png',
+		"layout_basic.css"			= 'nano/layouts/layout_basic.css',
+		"layout_basic.tmpl"			= 'nano/layouts/layout_basic.tmpl',
+		"layout_default.css"		= 'nano/layouts/layout_default.css',
+		"layout_default.tmpl"		= 'nano/layouts/layout_default.tmpl',
+		"doT.js"					= 'nano/scripts/doT.js',
+		"jquery-ui.js"				= 'nano/scripts/jquery-ui.js',
+		"jquery.js"					= 'nano/scripts/jquery.js',
+		"nano_base_callbacks.js"	= 'nano/scripts/nano_base_callbacks.js',
+		"nano_base_helpers.js"		= 'nano/scripts/nano_base_helpers.js',
+		"nano_config.js"			= 'nano/scripts/nano_config.js',
+		"nano_state.js"				= 'nano/scripts/nano_state.js',
+		"nano_state_default.js"		= 'nano/scripts/nano_state_default.js',
+		"nano_state_manager.js"		= 'nano/scripts/nano_state_manager.js',
+		"nano_template.js"			= 'nano/scripts/nano_template.js',
+		"nano_update.js"			= 'nano/scripts/nano_update.js',
+		"nano_utility.js"			= 'nano/scripts/nano_utility.js',
+		"icons.css"					= 'nano/styles/icons.css',
+		"shared.css"				= 'nano/styles/shared.css'
+		)
+
+	var/list/uncommon_files = list(
+		"air_alarm.tmpl"			= 'nano/interfaces/air_alarm.tmpl',
+		"airlock_electronics.tmpl"	= 'nano/interfaces/airlock_electronics.tmpl',
+		"apc.tmpl"					= 'nano/interfaces/apc.tmpl',
+		"atmos_filter.tmpl"			= 'nano/interfaces/atmos_filter.tmpl',
+		"atmos_mixer.tmpl"			= 'nano/interfaces/atmos_mixer.tmpl',
+		"atmos_pump.tmpl"			= 'nano/interfaces/atmos_pump.tmpl',
+		"canister.tmpl"				= 'nano/interfaces/canister.tmpl',
+		"chem_dispenser.tmpl"		= 'nano/interfaces/chem_dispenser.tmpl',
+		"chem_heater.tmpl"			= 'nano/interfaces/chem_heater.tmpl',
+		"cryo.tmpl"					= 'nano/interfaces/cryo.tmpl',
+		"smes.tmpl"					= 'nano/interfaces/smes.tmpl',
+		"solar_control.tmpl" 		= 'nano/interfaces/solar_control.tmpl',
+		"tanks.tmpl"				= 'nano/interfaces/tanks.tmpl'
+		)
 
 /datum/asset/nanoui/register()
-	// Crawl the directories to find files.
-	for (var/path in common_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					common[filename] = fcopy_rsc(path + filename)
-					register_asset(filename, common[filename])
-	for (var/path in uncommon_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					register_asset(filename, fcopy_rsc(path + filename))
+	for(var/filename in common)
+		register_asset(filename, common[filename])
+	for (var/filename in uncommon_files)
+		register_asset(filename, uncommon_files[filename])
 
 /datum/asset/nanoui/send(client, uncommon)
 	if(!islist(uncommon))
