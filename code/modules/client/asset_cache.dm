@@ -282,6 +282,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"nano_update.js"			= 'nano/scripts/nano_update.js',
 		"nano_utility.js"			= 'nano/scripts/nano_utility.js',
 		"icons.css"					= 'nano/styles/icons.css',
+		"normalize.css"					= 'nano/styles/normalize.css',
 		"shared.css"				= 'nano/styles/shared.css'
 		)
 
@@ -298,6 +299,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"cryo.tmpl"					= 'nano/interfaces/cryo.tmpl',
 		"smes.tmpl"					= 'nano/interfaces/smes.tmpl',
 		"solar_control.tmpl" 		= 'nano/interfaces/solar_control.tmpl',
+		"space_heater.tmpl" 		= 'nano/interfaces/space_heater.tmpl',
 		"tanks.tmpl"				= 'nano/interfaces/tanks.tmpl'
 		)
 
