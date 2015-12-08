@@ -91,7 +91,7 @@
 				return
 			message_admins("[key_name_admin(Proj.firer)] triggered a fueltank explosion.")
 			log_game("[key_name(Proj.firer)] triggered a fueltank explosion.")
-			explosion(src.loc,0,2,5, flame_range = 5)
+			explosion(src.loc,0,2,5, flame_range = 3)
 
 
 /obj/structure/reagent_dispensers/fueltank/blob_act()
@@ -99,7 +99,7 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/ex_act()
-	explosion(src.loc,0,2,5, flame_range = 5)
+	explosion(src.loc,0,2,5, flame_range = 3)
 	if(src)
 		qdel(src)
 
