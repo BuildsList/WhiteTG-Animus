@@ -62,7 +62,6 @@
 
 	var/list/potentialRandomZlevels = list(
 		'_maps/RandomZLevels/blackmarketpackers.dmm',
-		'_maps/RandomZLevels/stationCollision.dmm',
 		'_maps/RandomZLevels/spacebattle.dmm',
 		'_maps/RandomZLevels/beach.dmm',
 		'_maps/RandomZLevels/Academy.dmm',
