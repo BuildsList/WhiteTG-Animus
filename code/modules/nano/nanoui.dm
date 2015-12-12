@@ -371,6 +371,7 @@
 <html>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 	<head>
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)
 			{
