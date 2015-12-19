@@ -67,6 +67,82 @@
 			else if(!(key in C.prefs.ignoring))
 				C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message'>[msg]</span></span></font>"
 
+/client/verb/looc(msg as text)
+	set name = "LOOC"
+	set desc = "Local OOC, seen only by those in view."
+	set category = "OOC"
+
+	if(say_disabled)	//This is here to try to identify lag problems
+		usr << "\red Speech is currently admin-disabled."
+		return
+
+	if(!mob)	return
+	if(IsGuestKey(key))
+		src << "Guests may not use OOC."
+		return
+
+	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
+	if(!msg)	return
+
+	if(!(prefs.toggles & CHAT_LOOC))
+		src << "\red You have LOOC muted."
+		return
+
+	if(!holder)
+		if(!ooc_allowed)
+			src << "<span class='danger'>OOC is globally muted.</span>"
+			return
+		if(!looc_allowed)
+			src << "<span class='danger'>LOOC is globally muted.</span>"
+			return
+		if(!dooc_allowed && (mob.stat == DEAD))
+			usr << "<span class='danger'>OOC for dead mobs has been turned off.</span>"
+			return
+		if(prefs.muted & MUTE_OOC)
+			src << "<span class='danger'>You cannot use OOC (muted).</span>"
+			return
+		if(handle_spam_prevention(msg,MUTE_OOC))
+			return
+		if(findtext(msg, "byond://"))
+			src << "<B>Advertising other servers is not allowed.</B>"
+			log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
+			message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
+			return
+
+	log_ooc("(LOCAL) [mob.name]/[key] : [msg]")
+
+	var/mob/source = src.mob
+	var/list/heard = get_hearers_in_view(7, source)
+
+	var/display_name = source.key
+	if(holder && holder.fakekey)
+		display_name = holder.fakekey
+	if(source.stat != DEAD)
+		display_name = source.name
+
+	var/prefix
+	var/admin_stuff
+	for(var/client/target in clients)
+		if(target.prefs.toggles & CHAT_LOOC)
+			admin_stuff = ""
+			if(target in admins)
+				prefix = "(R)"
+				admin_stuff += "/([source.key])"
+				if(target != source.client)
+					admin_stuff += "(<A HREF='?src=\ref[target.holder];adminplayerobservejump=\ref[mob]'>JMP</A>)"
+			if(target.mob in heard)
+				prefix = ""
+			if((target.mob in heard) || (target in admins))
+				target << "<span class='ooc'><span class='looc'>LOOC: <span class='prefix'>[prefix]</span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>"
+
+/proc/toggle_looc()
+	looc_allowed = !( looc_allowed )
+	if (looc_allowed)
+		world << "<B>The LOOC channel has been globally enabled!</B>"
+	else
+		world << "<B>The LOOC channel has been globally disabled!</B>"
+
+
 /proc/toggle_ooc(toggle = null)
 	if(toggle != null) //if we're specifically en/disabling ooc
 		if(toggle != ooc_allowed)
