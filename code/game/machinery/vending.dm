@@ -789,6 +789,22 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					/obj/item/weapon/reagent_containers/pill/mutadone = 3,/obj/item/device/healthanalyzer = 2, /obj/item/device/sensor_device = 1,/obj/item/weapon/reagent_containers/glass/bottle/toxin = 2)
 	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 2,/obj/item/weapon/reagent_containers/pill/morphine = 2,/obj/item/weapon/reagent_containers/pill/charcoal = 3)
 
+/obj/machinery/vending/wallmed/emergency
+	name = "\improper NanoMed"
+	desc = "Wall-mounted Medical Equipment dispenser for emergency use."
+	icon_state = "wallmed"
+	icon_deny = "wallmed-deny"
+	req_access_txt = "0"
+	density = 0
+	products = list(/obj/item/weapon/reagent_containers/pill/patch/styptic = 5,
+					/obj/item/weapon/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 2,/obj/item/weapon/reagent_containers/glass/bottle/potass_iodide = 2,
+					/obj/item/weapon/reagent_containers/glass/bottle/atropine = 2,/obj/item/weapon/reagent_containers/syringe/antiviral = 3,
+					/obj/item/weapon/reagent_containers/pill/salbutamol = 5,
+					/obj/item/device/healthanalyzer = 2, /obj/item/device/sensor_device = 3)
+	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 2,/obj/item/weapon/reagent_containers/pill/morphine = 2,/obj/item/weapon/reagent_containers/pill/charcoal = 3)
+
+
 /obj/machinery/vending/security
 	name = "\improper SecTech"
 	desc = "A security equipment vendor"
@@ -977,6 +993,16 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/suit/jacket/leather/overcoat=1,/obj/item/clothing/under/pants/mustangjeans=1)
 	refill_canister = /obj/item/weapon/vending_refill/clothing
 
+/obj/machinery/vending/ammo
+	name = "Sgt. Robust's Munition Supply"
+	desc = "An ammunition vending machine."
+	icon_state = "ammo"
+	product_slogans = "Kill 'em all!;Any caliber or filling!;Get your clip!;I've got pills that cure defiance!"
+	vend_reply = "Don't spend all at once!"
+	products = list(/obj/item/weapon/storage/box/lethalshot = 5,/obj/item/weapon/storage/box/rubbershot = 5, /obj/item/ammo_box/magazine/m45 = 5, /obj/item/ammo_box/magazine/m556 = 5,
+					/obj/item/ammo_casing/c38 = 20, /obj/item/ammo_box/c9mm = 5, /obj/item/ammo_box/c45 = 4, /obj/item/ammo_box/c10mm = 4)
+	contraband = list(/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath = 5, /obj/item/ammo_box/magazine/m762 = 3, /obj/item/ammo_box/magazine/smgm45 = 3)
+	premium = list(/obj/item/ammo_box/magazine/m50 = 3, /obj/item/ammo_box/magazine/m75 = 2)
 #undef STANDARD_CHARGE
 #undef CONTRABAND_CHARGE
 #undef COIN_CHARGE

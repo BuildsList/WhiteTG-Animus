@@ -884,9 +884,18 @@ var/list/teleportlocs = list()
 	name = "Vacant Office"
 	icon_state = "security"
 
+/area/maintenance/prison
+	name = "Prison Shielded Room"
+	icon_state = "green"
+
+/area/security/infirmary
+	name = "Prison Wing Infirmary"
+	icon_state = "medbay"
+
 /area/quartermaster
 	name = "Quartermasters"
 	icon_state = "quart"
+
 
 ///////////WORK IN PROGRESS//////////
 
