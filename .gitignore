@@ -10,3 +10,4 @@ mapmerge/
 *.int
 *.backup
 *.int
+config/admins.txt

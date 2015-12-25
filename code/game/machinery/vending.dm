@@ -999,8 +999,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	icon_state = "ammo"
 	product_slogans = "Kill 'em all!;Any caliber or filling!;Get your clip!;I've got pills that cure defiance!"
 	vend_reply = "Don't spend all at once!"
+	req_access_txt = "2"
 	products = list(/obj/item/weapon/storage/box/lethalshot = 5,/obj/item/weapon/storage/box/rubbershot = 5, /obj/item/ammo_box/magazine/m45 = 5, /obj/item/ammo_box/magazine/m556 = 5,
-					/obj/item/ammo_casing/c38 = 20, /obj/item/ammo_box/c9mm = 5, /obj/item/ammo_box/c45 = 4, /obj/item/ammo_box/c10mm = 4)
+					/obj/item/ammo_box/c38 = 6, /obj/item/ammo_box/c9mm = 5, /obj/item/ammo_box/c45 = 4, /obj/item/ammo_box/c10mm = 4)
 	contraband = list(/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath = 5, /obj/item/ammo_box/magazine/m762 = 3, /obj/item/ammo_box/magazine/smgm45 = 3)
 	premium = list(/obj/item/ammo_box/magazine/m50 = 3, /obj/item/ammo_box/magazine/m75 = 2)
 #undef STANDARD_CHARGE
