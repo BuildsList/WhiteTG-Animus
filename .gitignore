@@ -11,3 +11,7 @@ mapmerge/
 *.backup
 *.int
 config/admins.txt
+_maps/map_files/Events/Red_October.dmm
+icons/obj/torpedo.dmi
+code/game/WorkInProgress/Alkoz/torpedoes.dm
+_maps/map_files/TgStation/backup/tgstation.2.1.3.dmm

@@ -237,3 +237,11 @@
 	name = "escape arm"
 	desc = "A direction sign, pointing out which way the escape shuttle dock is."
 	icon_state = "direction_evac"
+
+//Military markings
+//Soviet
+
+/obj/structure/sign/marking/redstar
+	name = "red star"
+	desc = "This marking indicates property of Soviet Space Navy"
+	icon_state = "redstar"
