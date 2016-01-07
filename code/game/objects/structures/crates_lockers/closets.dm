@@ -269,10 +269,6 @@
 			locked=!locked
 			src.update_icon()
 			multi.in_use=0
-			return
-			locked=!locked
-			src.update_icon()
-			multi.in_use=0
 			user.visible_message("<span class='warning'>[user] [locked?"closed":"opened"] closet with multitool.</span>",
 							 "<span class='warning'>You [locked?"enabled":"disabled"] the lock mechanism.</span>")
 
