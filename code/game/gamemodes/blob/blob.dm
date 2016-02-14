@@ -25,7 +25,7 @@ var/list/blobs_legit = list() //used for win-score calculations, contains only b
 	var/players_per_core = 30
 	var/blob_point_rate = 3
 
-	var/blobwincount = 1800
+	var/blobwincount = 900
 
 	var/list/infected_crew = list()
 
