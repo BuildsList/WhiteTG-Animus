@@ -44,6 +44,26 @@
 	else if(buckled)
 		buckled.unbuckle_mob()
 
+	if(src.ckey)
+		var/message ="[src]([src.ckey]) "
+		var/whereLink=null
+		var/turf/T=get_turf(src)
+		if(gibbed)
+			message+="body has been destroyed"
+			whereLink = "<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>"
+		else
+			message+="has died"
+			var/ref_mob = "\ref[src]"
+			whereLink = "<A HREF='?_src_=holder;adminplayerobservejump=[ref_mob]'>JMP</a>"
+
+		var/PlaceOfDeath
+		if( !istype(src.loc, /turf/) )
+			PlaceOfDeath=src.loc
+
+		message_admins("[message] [PlaceOfDeath?"in [PlaceOfDeath] ":""]in area [T.loc] [whereLink]")
+
+	clear_fullscreens()
+	..()
 
 /mob/living/proc/setup_animation(animation, prev_lying)
 	var/atom/movable/overlay/animate = null
